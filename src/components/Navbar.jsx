@@ -4,12 +4,14 @@ import {
 	Avatar,
 	Badge,
 	InputBase,
+	Menu,
+	MenuItem,
 	styled,
 	Toolbar,
 	Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import React from "react";
+import React, { useState } from "react";
 
 const StyledToolBar = styled(Toolbar)({
 	display: "flex",
@@ -42,6 +44,8 @@ const UserBox = styled(Box)(({ theme }) => ({
 }));
 
 const Navbar = () => {
+	const [open, setOpen] = useState(false);
+
 	return (
 		<AppBar position="sticky">
 			<StyledToolBar>
@@ -59,13 +63,35 @@ const Navbar = () => {
 					<Badge badgeContent={2} color="error">
 						<Notifications />
 					</Badge>
-					<Avatar sx={{ display: { width: "30px", height: "30px" } }} />
+					<Avatar
+						sx={{ display: { width: "30px", height: "30px" } }}
+						onClick={(e) => setOpen(true)}
+					/>
 				</Icons>
-				<UserBox>
+				<UserBox onClick={(e) => setOpen(true)}>
 					<Avatar sx={{ display: { width: "30px", height: "30px" } }} />
 					<Typography variant="h6">User</Typography>
 				</UserBox>
 			</StyledToolBar>
+
+			<Menu
+				id="demo-positioned-menu"
+				aria-labelledby="demo-positioned-button"
+				open={open}
+				onClose={(e) => setOpen(false)}
+				anchorOrigin={{
+					vertical: "top",
+					horizontal: "right",
+				}}
+				transformOrigin={{
+					vertical: "top",
+					horizontal: "right",
+				}}
+			>
+				<MenuItem>Profile</MenuItem>
+				<MenuItem>My account</MenuItem>
+				<MenuItem>Logout</MenuItem>
+			</Menu>
 		</AppBar>
 	);
 };
